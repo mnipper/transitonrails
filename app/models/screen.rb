@@ -25,6 +25,7 @@ class Screen < ActiveRecord::Base
   attr_accessible :name, :zoom, :latitude, :longitude
 
   belongs_to :user
+  has_many :blocks
 
 
 

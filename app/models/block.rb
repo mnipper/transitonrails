@@ -15,7 +15,8 @@
 #
 
 class Block < ActiveRecord::Base
-  belongs_to :screen
-
   attr_accessible :stop, :custom_name, :column, :position, :custom_body, :limit
+
+  belongs_to :screen
+  has_one :agency_stop
 end

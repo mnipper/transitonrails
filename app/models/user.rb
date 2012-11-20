@@ -33,4 +33,10 @@ class User < ActiveRecord::Base
          :confirmable, :lockable
 
   attr_accessible :first_name, :last_name, :wmata_key
+
+  has_many :screens
+
+
+
+
 end

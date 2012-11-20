@@ -1,4 +1,4 @@
-class ScreensControllerController < ApplicationController
+class ScreensController< ApplicationController
   before_filter :find_screens, :only => [:index]
   find_model Screen, :find_current_user, :only => [:edit, :update, :show, :destroy] 
 

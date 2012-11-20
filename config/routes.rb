@@ -8,7 +8,7 @@ Transitonrails::Application.routes.draw do
     member do
       #might need a route to check if asleep?
     end
-    collections do
+    collection do
     end
   end
 end

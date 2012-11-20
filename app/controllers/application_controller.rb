@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
+  before_filter :authenticate_user!
   
   # A shortcut for finding model in before_filter and using
   #not_found if the model is missing.

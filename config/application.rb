@@ -9,6 +9,16 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+def compile_asset?(path)
+  if File.basename(path) =~ /^[^_].*\.\w+$/
+    puts "Compiling #{path}"
+    true
+  else
+    puts "Ignoring: #{path}"
+    false
+  end
+end
+
 module Transitonrails
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -55,6 +65,9 @@ module Transitonrails
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.assets.js.compressor = :uglifier
+
+    config.assets.precompile = [ method(:compile_asset?).to_proc ]
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

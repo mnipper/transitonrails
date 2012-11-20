@@ -22,13 +22,6 @@ ActiveRecord::Schema.define(:version => 20121120175703) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "albums", :force => true do |t|
-    t.string   "artist"
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "blocks", :force => true do |t|
     t.integer  "screen_id"
     t.string   "stop"
@@ -39,14 +32,6 @@ ActiveRecord::Schema.define(:version => 20121120175703) do
     t.integer  "limit"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "entries", :force => true do |t|
-    t.string   "name"
-    t.date     "date"
-    t.time     "time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "screens", :force => true do |t|
@@ -66,14 +51,6 @@ ActiveRecord::Schema.define(:version => 20121120175703) do
     t.float    "longitude"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
-  end
-
-  create_table "tracks", :force => true do |t|
-    t.integer  "album_id"
-    t.string   "title"
-    t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

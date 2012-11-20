@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120173418) do
+ActiveRecord::Schema.define(:version => 20121120174241) do
 
   create_table "albums", :force => true do |t|
     t.string   "artist"
@@ -26,6 +26,25 @@ ActiveRecord::Schema.define(:version => 20121120173418) do
     t.time     "time"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "screens", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "monday_thursday_opening"
+    t.datetime "monday_thursday_closing"
+    t.datetime "friday_opening"
+    t.datetime "friday_closing"
+    t.datetime "saturday_opening"
+    t.datetime "saturday_closing"
+    t.datetime "sunday_opening"
+    t.datetime "sunday_closing"
+    t.string   "name"
+    t.float    "zoom"
+    t.datetime "last_check_in"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "tracks", :force => true do |t|

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120175252) do
+ActiveRecord::Schema.define(:version => 20121120175703) do
+
+  create_table "agency_stops", :force => true do |t|
+    t.integer  "block_id"
+    t.string   "agency"
+    t.string   "stop_id"
+    t.string   "exclusions"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "albums", :force => true do |t|
     t.string   "artist"

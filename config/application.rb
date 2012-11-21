@@ -65,7 +65,6 @@ module Transitonrails
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.js.compressor = :uglifier
 
     config.assets.precompile = [ method(:compile_asset?).to_proc ]
 

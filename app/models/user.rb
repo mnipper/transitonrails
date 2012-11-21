@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
 
   has_many :screens
 
+  def display_name
+    "#{first_name.to_s} #{last_name.to_s}"
+  end
+
 
 
 

@@ -22,4 +22,11 @@ class ApplicationController < ActionController::Base
        c.instance_variable_set("@#{clazz.name.underscore}", model)
     }, options)
   end
+
+
+  def after_sign_out_path_for(resource_or_scope)
+    login_path
+  end
+
+
 end

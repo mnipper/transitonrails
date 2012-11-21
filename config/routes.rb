@@ -1,6 +1,9 @@
 Transitonrails::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users do
+    get 'login', :to => 'devise/sessions#new'
+    get 'logout', :to => 'devise/sessions#destroy'
+  end
 
   root :to => 'screens#index'
 

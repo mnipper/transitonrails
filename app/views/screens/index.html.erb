@@ -1,7 +1,11 @@
-<%= render :partial => 'index_header' %>
+<%= render :partial => 'shared/header' %>
 
 <div class='container'>
   <h1>Welcome to Transit on Rails</h1>
-  <p>This screen will show all the previously created screens. As well as providing links to edit/delete them
-  and/or create new screens. Additionally, the user should have links to edit their profile etc. etc.</p>
+  <% if current_user.screens.count > 0 %>
+    <h3>Your Screens</h3>
+  <% else %>
+    <h4>You haven't created any screens yet!</h4>
+  <% end %>
+  <%= link_to 'Create New Screen', new_screen_path, :class => 'btn btn-success' %>
 </div>

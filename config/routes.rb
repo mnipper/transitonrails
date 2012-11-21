@@ -14,4 +14,6 @@ Transitonrails::Application.routes.draw do
     collection do
     end
   end
+
+  resources :users, :only => [:edit, :update]
 end

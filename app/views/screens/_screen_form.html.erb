@@ -1,0 +1,33 @@
+<%= form_for @screen, :html => {:class => 'form'} do |screen| %>
+  <fieldset>
+
+    <div class='control-group'>
+      <%= screen.label :name, :class => 'control-label pull-left' %>
+      <div class='controls'>
+        <%= screen.text_field :name, :class => 'input-block-level', 'placeholder' => 'Screen Name' %>
+      </div>
+    </div>
+
+    <%= render :partial => 'screen_form_times', :locals => {:screen => screen} %>
+
+    <h4>Custom Blocks</h4>
+    <% agencies = %w(metrorail metrobus art dc-circulator cabi) %>
+    <%= screen.fields_for :blocks do |block| %>
+      <div class=controls-row'>
+        <%= block.fields_for :agency_stop do |agency_stop| %>
+          <%= agency_stop.select :agency, agencies, {}, {:class => 'span2'} %>
+          <%= agency_stop.text_field :stop_id, :class => 'span2', :placeholder => 'Stop Id' %>
+        <% end %>
+        <%= block.text_field :custom_name, :class => 'span2', 'placeholder' => 'Custom Name' %>
+        <%= block.text_field :limit, :class => 'span1', 'placeholder' => 'Limit' %>
+        <%= block.text_field :column, :class => 'span1', 'placeholder' => 'Col' %>
+        <%= block.text_field :position, :class => 'span1', 'placeholder' => 'Pos' %>
+      </div>
+    <% end %>
+
+    <div class='control-group'>
+      <div class='controls'><%= screen.submit "Create", :class=>'btn btn-success' %></div>
+    </div>
+
+  </fieldset>
+<% end %>

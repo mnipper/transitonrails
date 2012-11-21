@@ -6,9 +6,20 @@ class ScreensController< ApplicationController
   end
 
   def new
+    @screen = Screen.new
   end
 
   def create
+    Time.zone = 'EST'
+    @screen = Screen.new(params[:screen])
+    @screen.user = current_user
+    if @screen.save
+      flash[:success] = 'Screen successfully created'
+      redirect_to root_path
+    else
+      flash[:error] = 'Errors creating screen'
+      respond_with @screen
+    end
   end
 
   def edit

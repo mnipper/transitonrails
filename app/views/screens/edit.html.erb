@@ -1,0 +1,20 @@
+<div class='container'>
+
+  <div class='row'>
+
+    <div class='span8'>
+      <div class='legend'>
+        <legend class=''>Edit Screen</legend>
+      </div>
+      <%= render :partial => 'screen_form', :locals => {:@screen => @screen} %>
+    </div>
+
+    <div class='span4'>
+      <div class='well'>
+        <%= render :partial => 'instructions' %>
+      </div>
+    </div>
+
+  </div>
+
+</div>

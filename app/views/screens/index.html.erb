@@ -2,6 +2,15 @@
   <h1>Welcome to Transit on Rails</h1>
   <% if current_user.screens.count > 0 %>
     <h3>Your Screens</h3>
+    <table id='screens-table' class='table table-striped'>
+      <tr>
+        <th>Screen Name</th>
+        <th>Number of Blocks</th>
+      </tr>
+      <% current_user.screens.each do |screen| %>
+        <%= render :partial => 'screen_row', :locals => {:screen => screen} %>
+      <% end %>
+    </table>
   <% else %>
     <h4>You haven't created any screens yet!</h4>
   <% end %>

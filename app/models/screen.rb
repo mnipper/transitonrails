@@ -24,10 +24,12 @@
 class Screen < ActiveRecord::Base
   attr_accessible :name, :zoom, :latitude, :longitude, :monday_thursday_opening,
   :monday_thursday_closing, :friday_opening, :friday_closing, :saturday_opening,
-  :saturday_closing, :sunday_opening, :sunday_closing
+  :saturday_closing, :sunday_opening, :sunday_closing, :blocks_attributes
 
   belongs_to :user
   has_many :blocks
+  has_many :agency_stops, :through => :blocks
+  accepts_nested_attributes_for :blocks, :agency_stops
 
   after_initialize :assign_default_times
 
@@ -53,6 +55,11 @@ class Screen < ActiveRecord::Base
     self.saturday_closing = '03:00 AM' if read_attribute(:saturday_closing).nil?
     self.sunday_opening = '07:00 AM' if read_attribute(:sunday_opening).nil?
     self.sunday_closing = '12:00 AM' if read_attribute(:sunday_closing).nil?
+    if self.blocks.empty?
+      8.times do
+        self.blocks.build
+      end
+    end
     return true
   end
 

@@ -2,6 +2,8 @@ class ScreensController< ApplicationController
   before_filter :find_screens, :only => [:index]
   find_model Screen, :find_current_user, :only => [:edit, :update, :show, :destroy] 
 
+  respond_to :html, :json
+
   def index
   end
 
@@ -17,15 +19,25 @@ class ScreensController< ApplicationController
       flash[:success] = 'Screen successfully created'
       redirect_to root_path
     else
-      flash[:error] = 'Errors creating screen'
+      flash[:error] = 'Error creating screen'
       respond_with @screen
     end
   end
 
   def edit
+    respond_with @screen
   end
 
   def update
+    Time.zone = 'EST'
+    @screen.update_attributes(params[:screen])
+    if @screen.save
+      flash[:success] = 'Screen successfully updated'
+      redirect_to root_path
+    else
+      flash[:error] = 'Error updating screen'
+      respond_with @screen
+    end
   end
 
   def show

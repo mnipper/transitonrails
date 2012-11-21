@@ -1,5 +1,31 @@
-<%= render :partial => 'shared/header' %>
 <div class='container'>
-<h2>Create a New Screen</h2>
+
+  <div class='row'>
+
+
+    <div class='span8'>
+      <%= form_for Screen.new, :html => {:class => 'form'} do |screen| %>
+          <div class='legend'>
+            <legend class=''>Create a New Screen</legend>
+          </div>
+          <fieldset>
+            <div class='control-group'>
+              <%= screen.label :name, :class => 'control-label pull-left' %>
+              <div class='controls'>
+                <%= screen.text_field :name, :class => 'input-block-level', 'placeholder' => 'Screen Name' %>
+              </div>
+            </div>
+
+          </fieldset>
+      <% end %>
+    </div>
+
+    <div class='span4'>
+      <div class='well'>
+        <%= render :partial => 'instructions' %>
+      </div>
+    </div>
+
+  </div>
 
 </div>

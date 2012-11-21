@@ -10,8 +10,7 @@
 #  friday_closing          :datetime
 #  saturday_opening        :datetime
 #  saturday_closing        :datetime
-#  sunday_opening          :datetime
-#  sunday_closing          :datetime
+#  sunday_opening          :datetime #  sunday_closing          :datetime
 #  name                    :string(255)
 #  zoom                    :float
 #  last_check_in           :datetime

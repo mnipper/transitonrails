@@ -1,0 +1,39 @@
+<%= render :partial => 'shared/header' %>
+<div class='container'>
+  <%= form_for @user do |f| %>
+    <div id='legend'>
+      <legend class=''>Edit Your Profile</legend>
+    </div>
+
+    <div class='control-group'>
+      <%= f.label :first_name, :class => 'control-label' %>
+      <div class='controls'>
+        <%= f.text_field :first_name, :class => 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class='control-group'>
+      <%= f.label :last_name, :class => 'control-label' %>
+      <div class='controls'>
+        <%= f.text_field :last_name, :class => 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class='control-group'>
+      <%= f.label :wmata_key, :class => 'control-label' %>
+      <div class='controls'>
+        <%= f.text_field :wmata_key, :class => 'input-xlarge' %>
+      </div>
+    </div>
+
+
+    <div class='control-group'>
+      <div class='controls'><%= f.submit "Save", :class=>'btn btn-success' %></div>
+    </div>
+
+
+
+
+  <% end %>
+
+</div>

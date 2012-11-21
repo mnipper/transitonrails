@@ -44,6 +44,13 @@ class ScreensController< ApplicationController
   end
   
   def destroy
+    if @screen.destroy
+      flash[:success] = 'Screen successfully deleted'
+      redirect_to root_path
+    else
+      flash[:error] = 'Error deleting screen'
+      redirect_to :back
+    end
   end
 
 

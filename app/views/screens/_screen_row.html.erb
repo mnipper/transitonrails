@@ -1,4 +1,8 @@
 <tr>
   <td><%= link_to screen.name, edit_screen_path(screen) %></td>
   <td><%= screen.blocks.size.to_s %></td>
+  <td>
+    <%= link_to 'View', screen_path(screen), :class => 'btn btn-primary' %>
+    <%= link_to 'Delete', screen_path(screen), :class => 'btn btn-danger', :method => 'delete' %>
+  </td>
 </tr>

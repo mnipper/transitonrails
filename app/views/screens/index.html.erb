@@ -6,6 +6,7 @@
       <tr>
         <th>Screen Name</th>
         <th>Number of Blocks</th>
+        <th></th>
       </tr>
       <% current_user.screens.each do |screen| %>
         <%= render :partial => 'screen_row', :locals => {:screen => screen} %>

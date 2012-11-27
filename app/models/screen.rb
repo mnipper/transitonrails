@@ -42,11 +42,17 @@ class Screen < ActiveRecord::Base
     end
   end
 
+  def number_of_columns
+    screens.map
+  end
+
+  def relevant_blocks
+  end
+
   private
 
   def assign_default_times
     return unless new_record?
-    Time.zone = 'EST'
     self.monday_thursday_opening = '05:30 AM' if read_attribute(:monday_thursday_opening).nil?
     self.monday_thursday_closing = '12:00 AM' if read_attribute(:monday_thursday_closing).nil?
     self.friday_opening = '05:30 AM' if read_attribute(:friday_opening).nil?

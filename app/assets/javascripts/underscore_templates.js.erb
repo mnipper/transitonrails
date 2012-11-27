@@ -1,0 +1,14 @@
+var bus_template = "\
+  <div class='item agency-{{= bus.agency }}'>\
+    <div class='route'>{{= bus.route }}</div>\
+    <div class='desination'>{{= bus.destination }}</div>\
+    <div class='countdown'>{{= bus.prediction }}</div>\
+  </div>";
+
+var train_template = "\
+  <div class='items mins-away-{{= train.prediction}} line-{{= train.line }}'>\
+    <div class='line-disc'></div>\
+    <div class='destination'>{{= train.destination }}</div>\
+    <div class='countdown'>{{= train.prediction }}</div>\
+  </div>';
+

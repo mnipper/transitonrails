@@ -12,7 +12,6 @@ class ScreensController< ApplicationController
   end
 
   def create
-    Time.zone = 'EST'
     @screen = Screen.new(params[:screen])
     @screen.user = current_user
     if @screen.save
@@ -29,7 +28,6 @@ class ScreensController< ApplicationController
   end
 
   def update
-    Time.zone = 'EST'
     @screen.update_attributes(params[:screen])
     if @screen.save
       flash[:success] = 'Screen successfully updated'

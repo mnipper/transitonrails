@@ -5,6 +5,7 @@ gem 'mysql2'
 gem 'debugger'
 gem 'devise'
 gem 'yajl-ruby'
+gem 'rest-client'
 
 
 # Gems used only for assets and not required

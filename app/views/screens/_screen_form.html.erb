@@ -11,11 +11,10 @@
     <%= render :partial => 'screen_form_times', :locals => {:screen => screen} %>
 
     <h4>Custom Blocks</h4>
-    <% agencies = %w(metrorail metrobus art dc-circulator cabi) %>
     <%= screen.fields_for :blocks do |block| %>
       <div class=controls-row'>
         <%= block.fields_for :agency_stop do |agency_stop| %>
-          <%= agency_stop.select :agency, agencies, {}, {:class => 'span2'} %>
+          <%= agency_stop.select :agency, AGENCIES, {}, {:class => 'span2'} %>
           <%= agency_stop.text_field :stop_id, :class => 'span2', :placeholder => 'Stop Id' %>
         <% end %>
         <%= block.text_field :custom_name, :class => 'span2', 'placeholder' => 'Custom Name' %>
@@ -26,7 +25,7 @@
     <% end %>
 
     <div class='control-group'>
-      <div class='controls'><%= screen.submit "Create", :class=>'btn btn-success' %></div>
+      <div class='controls'><%= screen.submit "Save", :class=>'btn btn-success' %></div>
     </div>
 
   </fieldset>

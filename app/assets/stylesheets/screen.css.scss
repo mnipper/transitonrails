@@ -1,9 +1,32 @@
-.form-horizontal .control-label {
-  width: auto;
-  padding-right: 10px;
-  text-align: left;
+/* 
+    Document   : style
+    Created on : Nov 30, 2011, 12:49:05 PM
+    Author     : atpadmin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
 }
 
-.controls-row {
-  margin-bottom: 20px;
+body.screen-show {
+  background-color: #000;
+  font-family: Helvetica, Arial, sans-serif;
+  color:#eeeeee;
+}
+
+#loading-box {
+  margin: auto;
+  width: 175px;
+  text-align: center;
+  padding: .5em 1em;
+  font-size: 3em;
+  border-radius: 9px;
+  background-color: #444;
 }

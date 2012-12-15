@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% if params[:controller] == 'screens' && params[:action] == 'show' %>
+  <% screen_show = (params[:controller] == 'screens' && params[:action] == 'show') %>
+  <% if screen_show %>
     <title>Transit on Rails - <%= @screen.name %></title>
   <% else %>
     <title>Transit On Rails</title>
@@ -10,8 +11,8 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <% unless params[:controller] == 'screens' && params[:action] == 'show' %>
+<body class='<%= screen_show ? 'screen-show' : '' %>'>
+  <% unless screen_show %>
     <%= render :partial => 'shared/header' %>
     <%= render :partial => 'shared/alerts' %>
   <% end %>

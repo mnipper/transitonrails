@@ -16,6 +16,7 @@
 
 class Block < ActiveRecord::Base
   require 'yajl'
+  require 'open-uri'
 
   attr_accessible :stop, :custom_name, :column, :position, :custom_body, :limit, :agency_stop_attributes
 
@@ -30,6 +31,7 @@ class Block < ActiveRecord::Base
   RAIL_PREDICTION_URL = 'http://api.wmata.com/StationPrediction.svc/json/GetPrediction'
   RAIL_INFO_URL = 'http://api.wmata.com/Rail.svc/json/JStationInfo'
   BUS_PREDICTION_URL = 'http://api.wmata.com/NextBusService.svc/json/JPredictions'
+  CABI_PREDICTION_URL = 'http://www.capitalbikeshare.com/stations/bikeStations.xml'
 
 
   #Calls WMATA Route for MetroRail Info
@@ -79,8 +81,17 @@ class Block < ActiveRecord::Base
     prediction_info = Yajl::Parser.parse(RestClient.get(BUS_PREDICTION_URL, params_hash))
   end
 
+  #Calls Route cor CaBi station information
+  #
+  # @return [ String ] id The id of the station
+  # @return [ String ] name The name of the station
+  # @return [ String ] terminalName number associated with station (31505)
+  # @return [ String ] nbBikes Number of available bikes
+  # @return [ String ] nbEmptyDocks Number of empty docks
+  #
   def cabi_prediction_info
-    {}
+      station = Nokogiri::XML(open('http://www.capitalbikeshare.com/stations/bikeStations.xml')).css("stations station id:contains('#{stop_id}')").first.parent
+      station.children.inject({}) { |m, child| m[child.name] = child.content; m }
   end
 
   def stop_info

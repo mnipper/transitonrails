@@ -12,10 +12,26 @@ class BlockPresenter
     data.merge!(:column => block.column)
     data.merge!(:order => block.position)
     data.merge!(:name => block_name)
-    data.merge!(:vehicles => vehicles_data)
+    data.merge!(block_specific_info)
+    data
   end
 
   private
+
+  def block_specific_info
+    info = case(block_type)
+      when *['rail', 'bus'] then {:vehicles => vehicles_data}
+      when *['cabi'] then cabi_info
+      else {}
+      end
+  end
+
+  def cabi_info
+    info = {}
+    info.merge!({:bike_count => prediction_info['nbBikes'],
+                 :dock_count => prediction_info['nbEmptyDocks']})
+    info
+  end
 
 
   def block_type
@@ -44,7 +60,7 @@ class BlockPresenter
     name = case (block_type)
       when *['bus'] then prediction_info.fetch('StopName', 'Unknown Name')
       when *['rail'] then prediction_info['Trains'].first.fetch('LocationName')
-      when *['cabi'] then 'Capital Bikeshare Station'
+      when *['cabi'] then prediction_info['name']
       else 'Custom Name'
     end
     name

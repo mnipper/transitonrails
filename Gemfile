@@ -6,6 +6,7 @@ gem 'debugger'
 gem 'devise'
 gem 'yajl-ruby'
 gem 'rest-client'
+gem 'nokogiri'
 
 
 # Gems used only for assets and not required

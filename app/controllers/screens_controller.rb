@@ -1,6 +1,6 @@
 class ScreensController< ApplicationController
   before_filter :find_screens, :only => [:index]
-  find_model Screen, :find_current_user, :only => [:edit, :update, :show, :destroy] 
+  find_model Screen, :find_current_user, :only => [:edit, :update, :show, :destroy, :screen_information] 
 
   respond_to :html, :json
 
@@ -51,6 +51,10 @@ class ScreensController< ApplicationController
     end
   end
 
+  def screen_information
+    @screen_info = ScreenPresenter.new(@screen).data
+    respond_with(@screen_info)
+  end
 
   private
 

@@ -2,9 +2,14 @@
 
 .bus_location { margin-bottom:10px; clear:both; border-bottom:1px solid #fff; padding-bottom:10px;}
 .bus_location h2 {  color:#ffffff; font-size:150%; } /* station name */
-#bus_logo { background:#000; height:30px; width:30px; background-image:url("../images/bus_logo_50.png");
-background-size: 30px 30px;
-float:left; margin-right:10px;}
+#bus_logo { 
+  background:#000; 
+  height:30px; 
+  width:30px; 
+  background-image: image-url("bus_logo_50.png");
+  background-size: 30px 30px;
+  float:left; margin-right:10px;
+}
 
 .bus_module { height:70px; margin-bottom:1%;}
 
@@ -29,26 +34,28 @@ td.bus_table_destination h3 { font-size:100%; font-weight:bold; padding:0; margi
 .bus_table_time { min-width:70px; text-align:center; background:#575757;}
 td.bus_table_time h3 { padding:0; margin:0; color:#ffcc33; font-weight:bold; font-size:300%; line-height:120%;}
 
-.bus_table_upcoming { min-width:60px; text-align:center; vertical-align:top; background:#575757; padding-top:3px; }
-td.bus_table_upcoming h4 { padding:7px 0 0 0; font-size:130%; margin:0; color:#fff;}
+.bus_table_upcoming { min-width:30px; text-align:center; vertical-align:top; background:#575757; padding-top:3px; }
+td.bus_table_upcoming h4 { padding:7px 0 0 0; font-size:130%; font-weight: normal; margin:0; color:#fff;}
 
 
 #bus_table tr { border-bottom: 10px solid #000; }
 
-.bus_line_wmata { background:#105cb6;}
-.bus_line_art { background:#009370;}
-.bus_line_circulator { background:#CC3333;}
+.bus_line_wmata_route, .bus_line_wmata { background:#105cb6;}
+.bus_line_art_route, .bus_line_art { background:#009370;}
+.bus_line_circulator_route, .bus_line_circulator { background:#CC3333;}
 
-.bus_line_circ_logo {  background-image:url("../images/circ_logo_trans.png");
-background-size:80px;
-background-position: 25px 6px;
-background-repeat:no-repeat;
+.bus_line_circ_logo {  
+  background-image: image-url("circ_logo_trans.png");
+  background-size:80px;
+  background-position: 25px 6px;
+  background-repeat:no-repeat;
 }
 
-.bus_line_art_logo {  background-image:url("../images/art_logo_trans_50.png");
-background-size:80px;
-background-position: 25px 6px;
-background-repeat:no-repeat;
+.bus_line_art_logo {  
+  background-image: image-url('art_logo_trans_50.png');
+  background-size:80px;
+  background-position: 25px 6px;
+  background-repeat:no-repeat;
 }
 
 

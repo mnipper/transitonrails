@@ -1,6 +1,49 @@
 $(document).ready(function(){
+  /*=======================================
+     * Underscore template settings
+     =========================================*/
+  _.templateSettings = {
+      interpolate : /\{\{\=(.+?)\}\}/g,
+      evaluate : /\{\{(.+?)\}\}/g
+  };
+
 
   //style timepicker elements
   $('.timepicker-default').timepicker({defaultTime: 'value'});
 
+  function isScreenShow() {
+    return $('body.screen-show').length ? true : false;
+  }
+
+  if(isScreenShow()) {
+    var screen_url = window.location.pathname.match(/\/screens\/[0-9]*/g)[0];
+    var full_url = screen_url + '/screen_information.json';
+    $('#screen-view').smartupdater({
+        url: full_url,
+        minTimeout: 15000
+      },
+      function(result) {
+        var data = JSON.parse(result);
+        updateScreenView(data);
+      }
+    );
+  };
+
 });
+
+var test_block;
+
+function updateScreenView(data) {
+  $('#loading-box').remove();
+  _.each(data.blocks, function(block){
+    var columnNum = block.column;
+    var block_html = _.template(block_template, {block: block});
+    var columnEl = $('#col-'+columnNum);
+    var blockEl = columnEl.find('#block-'+block.id);
+    if (blockEl.length) {
+      blockEl.replaceWith(block_html);
+    } else {
+      columnEl.append(block_html);
+    }
+  });
+}

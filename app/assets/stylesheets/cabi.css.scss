@@ -5,7 +5,13 @@
 
 #cabi_table td {  vertical-align:bottom;}
 
-.cabi_icon { float:left; background-image: url('../images/cabi_logo_yellow.png'); width: 210px; height: 34px; }
+.cabi_icon { 
+  float:left; 
+  background-image: image-url('cabi_logo_yellow.png'); 
+  width: 210px; 
+  height: 34px; 
+}
+
 .cabi_module { }
 
 tr.cabi_header td { border-bottom:1px solid #fff; padding-bottom:1%;   }

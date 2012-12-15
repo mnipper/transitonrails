@@ -1,9 +1,10 @@
-<div id='loading-box'>Loading...</div>
+<div id='screen-view'>
+  <div id='loading-box'>Loading...</div>
 
-<% @screen.number_of_columns.times do |i| %>
-  <div class='col' id='col-<%= i %>'>
-  </div>
-<% end %>
+  <% @screen.number_of_columns.times do |i| %>
+    <div class='col' id='col-<%= i + 1%>'>
+    </div>
+  <% end %>
+</div>
 
 
-<div id='results'></div>

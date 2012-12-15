@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require bootstrap-timepicker
+//= require underscore-min
 //= require smartupdater
 //= require script
 //= require_tree .

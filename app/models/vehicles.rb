@@ -70,7 +70,8 @@ class Vehicles
       'NewCrltn' => 'New Carrollton',
       'W Fls Ch' => 'west Falls Church',
       'Frnconia' => 'Franconia-Springfield',
-      'Grosvener-Strathmore' => 'Grosvener'
+      'Grosvenor-Strathmore' => 'Grosvenor',
+      'VanNess' => 'Van Ness'
     }
   end
 

@@ -9,7 +9,7 @@ Transitonrails::Application.routes.draw do
 
   resources :screens do
     member do
-      #might need a route to check if asleep?
+      get :screen_information
     end
     collection do
     end

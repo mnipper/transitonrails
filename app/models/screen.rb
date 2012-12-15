@@ -46,6 +46,10 @@ class Screen < ActiveRecord::Base
     blocks.collect(&:column).uniq.compact.size
   end
 
+  def relevant_blocks
+    blocks.reject { |block| block.stop_id.blank? || block.stop_id.nil? }
+  end
+
   private
 
   def assign_default_times

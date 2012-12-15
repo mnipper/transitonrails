@@ -1,30 +1,16 @@
-var bus_template = "\
-  <div class='item agency-{{= bus.agency }}'>\
-    <div class='route'>{{= bus.route }}</div>\
-    <div class='desination'>{{= bus.destination }}</div>\
-    <div class='countdown'>{{= bus.prediction }}</div>\
-  </div>";
-
-var train_template = "\
-  <div class='items mins-away-{{= train.prediction}} line-{{= train.line }}'>\
-    <div class='line-disc'></div>\
-    <div class='destination'>{{= train.destination }}</div>\
-    <div class='countdown'>{{= train.prediction }}</div>\
-  </div>";
-
 var block_template = "\
   <div class='block' id='block-{{= block.id }}' data-order='{{= block.order }}'>\
-    {{= inner_block_template(block.type) }}\
+    {{= inner_block_template(block.type, block) }}\
   </div>\
 ";
 
-function inner_block_template(blockType) {
+var inner_block_template = function(blockType, block) {
   html = ''
-  if (blockType == 'metro' || blockType == 'bus') {
-    html = _.template(metro_template, {});
+  if (blockType == 'rail' || blockType == 'bus') {
+    html = _.template(metro_bus_template, {block: block});
   }
   if (blockType == 'cabi') {
-    html = _.template(cabi_template, {});
+    html = _.template(cabi_template, {block: {}});
   }
   return html;
 }
@@ -53,6 +39,61 @@ var metro_template = "\
           <td class='metro_table_upcoming'>\
           </td>\
         </tr>\
+      </tbody>\
+    </table>\
+  </div>\
+";
+
+function busDirection(destString) {
+  var directionString = destString.match(/South to|North to/g);
+  return directionString == 'North to' ? 'Northbound to:' : 'Southbound to:';
+}
+
+function busDestination(destString) {
+  return destString.replace(/South to|North to/g, '');
+}
+
+var metro_bus_template = "\
+  <div class='{{= block.type }}_container'>\
+    <div class='{{= block.type }}_location'>\
+      <div id='{{= block.type }}_logo'></div>\
+      <h2>{{= block.name }}</h2>\
+    </div>\
+    <table id='{{= block.type }}_table'>\
+      <tbody>\
+      {{ for (var index = 0; index < block.vehicles.length; index++) { }}\
+        {{ var vehicle = block.vehicles[index]; }}\
+        <tr class='{{= block.type }}_table_module' id='block-1-vehicle-0'>\
+          <td class='{{= block.type }}_table_line'>\
+            <div class='{{= block.type }}_line {{= block.type }}_line_{{= vehicle.suffix }}_route'>\
+              <h3>{{= vehicle.route_id }}</h3>\
+            </div>\
+          </td>\
+          <td class='{{= block.type }}_table_destination {{= block.type }}_line_{{= vehicle.suffix }} dark transparent'>\
+            {{ if (block.type === 'rail'){ }}\
+              <h3>{{= vehicle.destination }}</h3>\
+            {{ } else { }}\
+              <h3>{{= busDirection(vehicle.destination) }}</h3>\
+              <h4>{{= busDestination(vehicle.destination) }}</h4>\
+            {{ } }}\
+          </td>\
+          <td class='{{= block.type }}_table_time'>\
+            <h3>{{= vehicle.minutes }}</h3>\
+            {{ if (block.type === 'rail'){ }}\
+              <h4>MINUTES</h4>\
+            {{ } else { }}\
+              <span class='bus'>MINUTES</span>\
+            {{ } }}\
+          </td>\
+          <td class='{{= block.type }}_table_upcoming'>\
+          {{ if (vehicle.upcoming_vehicles.length) { }}\
+            {{ for (var uindex = 0; uindex < vehicle.upcoming_vehicles.length; uindex++) { }}\
+              <h4>{{= vehicle.upcoming_vehicles[uindex] }}</h4>\
+            {{ } }}\
+          {{ } }}\
+        </td>\
+        </tr>\
+      {{ } }}\
       </tbody>\
     </table>\
   </div>\

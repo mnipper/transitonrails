@@ -3,7 +3,7 @@ class Vehicles
 
   def initialize(vehicle_type, vehicles = [])
     @vehicle_type = vehicle_type
-    @vehicles = vehicle_type == 'cabi' ? [] : vehicles.inject([]) { |m, v| m << format_vehicle_data(v); m }.compact
+    @vehicles = vehicles.inject([]) { |m, v| m << format_vehicle_data(v); m }.compact
   end
 
   def vehicles

@@ -10,39 +10,11 @@ var inner_block_template = function(blockType, block) {
     html = _.template(metro_bus_template, {block: block});
   }
   if (blockType == 'cabi') {
-    html = _.template(cabi_template, {block: {}});
+    html = _.template(cabi_template, {block: block});
   }
   return html;
 }
 
-
-var metro_template = "\
-  <div class='metro_container'>\
-    <div class='metro_location'>\
-      <div id='metro_logo'></div>\
-      <h2>NoMa</h2>\
-    </div>\
-    <table id='metro_table'>\
-      <tbody>\
-        <tr class='metro_table_module' id='block-1-vehicle-0'>\
-          <td class='metro_table_line'>\
-            <div class='metro_line metro_line_red'>\
-              <h3>RD</h3>\
-            </div>\
-          </td>\
-          <td class='metro_table_destination metro_line_red_dark transparent'>\
-            <h3>Shady Grove</h3>\
-          </td>\
-          <td class='metro_table_time'>\
-            <h3>13</h3><h4>MINUTES</h4>\
-          </td>\
-          <td class='metro_table_upcoming'>\
-          </td>\
-        </tr>\
-      </tbody>\
-    </table>\
-  </div>\
-";
 
 function busDirection(destString) {
   var directionString = destString.match(/South to|North to/g);
@@ -99,39 +71,8 @@ var metro_bus_template = "\
   </div>\
 ";
 
-var bus_template = "\
-<div class='bus_stop_container'>\
-  <div class='bus_location'>\
-    <div id='bus_logo'></div>\
-    <h2>Florida Ave + North Capitol St</h2>\
-  </div>\
-  <table id='bus_table'>\
-    <tbody>\
-      <tr class='bus_table_module' id='block-2-vehicle-0'>\
-        <td class='bus_table_line'>\
-          <div class='bus_line bus_line_wmata'>\
-            <h3>92</h3>\
-          </div>\
-        </td>\
-        <td class='bus_table_destination bus_line_wmata'>\
-          <h3>Southbound to:</h3><h4> Congress Heights Station</h4>\
-        </td>\
-        <td class='bus_table_time'>\
-          <h3>12</h3>\
-          <span class='bus_min'>MINUTES</span>\
-        </td>\
-        <td class='bus_table_upcoming'>\
-          <h4>36</h4>\
-          <h4>60</h4>\
-        </td>\
-      </tr>\
-    </tbody>\
-  </table>\
-</div>\
-";
-
 var cabi_template = "\
-<div id='block-4' class='cabi_container'> \
+<div class='{{= block.type }}_container'> \
   <table id='cabi_table'>\
     <tbody>\
       <tr class='cabi_header'>\
@@ -147,16 +88,16 @@ var cabi_template = "\
       </tr>\
       <tr class='cabi_data'>\
         <td class='pie'>\
-          <img src='https://chart.googleapis.com/chart?cht=p&amp;chs=100x80&amp;chd=t:8,3&amp;chco=ff0000|b3b3b3&amp;chf=bg,s,000000&amp;chp=1.58'>\
+        <img src='https://chart.googleapis.com/chart?cht=p&amp;chs=100x80&amp;chd=t:{{= block.bike_count }},{{= block.dock_count }}&amp;chco=ff0000|b3b3b3&amp;chf=bg,s,000000&amp;chp=1.58'>\
         </td>\
         <td class='cabi_location'>\
-          <span class='cabi_dock_location'>Eckington Pl &amp; Q St NE</span>\
+          <span class='cabi_dock_location'>{{= block.name }}</span>\
         </td>\
         <td>\
-          <h3 class='cabi_bikes'>8</h3>\
+          <h3 class='cabi_bikes'>{{= block.bike_count }}</h3>\
         </td>\
         <td>\
-          <h3 class='cabi_docks'>3</h3>\
+          <h3 class='cabi_docks'>{{= block.dock_count }}</h3>\
         </td>\
       </tr>\
     </tbody>\

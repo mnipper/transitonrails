@@ -43,10 +43,7 @@ class Screen < ActiveRecord::Base
   end
 
   def number_of_columns
-    screens.map
-  end
-
-  def relevant_blocks
+    blocks.collect(&:column).uniq.compact.size
   end
 
   private

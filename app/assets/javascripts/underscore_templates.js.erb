@@ -74,18 +74,18 @@ var metro_bus_template = "\
 var cabi_template = "\
 <div class='{{= block.type }}_container'> \
   <table id='cabi_table'>\
+    <tr class='cabi_header'>\
+      <th colspan='2'>\
+        <span class='cabi_icon'>&nbsp;</span>\
+      </th>\
+      <th class='bikes'>\
+        <h4>BIKES</h4>\
+      </th>\
+      <th class='docks'>\
+        <h4>DOCKS</h4>\
+      </th>\
+    </tr>\
     <tbody>\
-      <tr class='cabi_header'>\
-        <td colspan='2'>\
-          <span class='cabi_icon'>&nbsp;</span>\
-        </td>\
-        <td class='bikes'>\
-          <h4>BIKES</h4>\
-        </td>\
-        <td class='docks'>\
-          <h4>DOCKS</h4>\
-        </td>\
-      </tr>\
       <tr class='cabi_data'>\
         <td class='pie'>\
         <img src='https://chart.googleapis.com/chart?cht=p&amp;chs=100x80&amp;chd=t:{{= block.bike_count }},{{= block.dock_count }}&amp;chco=ff0000|b3b3b3&amp;chf=bg,s,000000&amp;chp=1.58'>\

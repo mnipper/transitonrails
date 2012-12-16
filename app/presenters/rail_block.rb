@@ -22,7 +22,12 @@ class RailBlock < BlockPresenter
   end
 
   def vehicles_data
-    Vehicles.new(block_type, prediction_info[vehicles_key]).vehicles
+    VehiclesFactory.new({:type => block_type, 
+                         :vehicle_info => vehicle_info}).vehicles
+  end
+
+  def vehicle_info
+    prediction_info[vehicles_key]
   end
 
   def vehicles_key

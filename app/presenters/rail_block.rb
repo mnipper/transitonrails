@@ -18,7 +18,8 @@ class RailBlock < BlockPresenter
   end
 
   def api_name
-    prediction_info[vehicles_key].first.fetch('LocationName')
+    train = prediction_info[vehicles_key].first || {}
+    train.fetch('LocationName', 'Unknown Name')
   end
 
   def vehicles_data

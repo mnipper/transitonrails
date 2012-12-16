@@ -1,1 +1,1 @@
-AGENCIES = %w(metrorail metrobus art dc-circulator cabi)
+AGENCIES = %w(metrorail metrobus dc-circulator cabi)

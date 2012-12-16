@@ -82,20 +82,23 @@ var cabi_template = "\
       </th>\
     </tr>\
     <tbody>\
+    {{ for (var index = 0; index < block.stations.length; index++) { }}\
+      {{ var station = block.stations[index]; }}\
       <tr class='cabi_data'>\
         <td class='pie'>\
-        <img src='https://chart.googleapis.com/chart?cht=p&amp;chs=100x80&amp;chd=t:{{= block.bike_count }},{{= block.dock_count }}&amp;chco=ff0000|b3b3b3&amp;chf=bg,s,000000&amp;chp=1.58'>\
+        <img src='https://chart.googleapis.com/chart?cht=p&amp;chs=100x80&amp;chd=t:{{= station.bike_count }},{{= station.dock_count }}&amp;chco=ff0000|b3b3b3&amp;chf=bg,s,000000&amp;chp=1.58'>\
         </td>\
         <td class='cabi_location'>\
-          <span class='cabi_dock_location'>{{= block.name }}</span>\
+          <span class='cabi_dock_location'>{{= station.name }}</span>\
         </td>\
         <td>\
-          <h3 class='cabi_bikes'>{{= block.bike_count }}</h3>\
+          <h3 class='cabi_bikes'>{{= station.bike_count }}</h3>\
         </td>\
         <td>\
-          <h3 class='cabi_docks'>{{= block.dock_count }}</h3>\
+          <h3 class='cabi_docks'>{{= station.dock_count }}</h3>\
         </td>\
       </tr>\
+    {{ } }}\
     </tbody>\
   </table>\
 </div>\

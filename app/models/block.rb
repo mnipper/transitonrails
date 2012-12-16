@@ -32,8 +32,6 @@ class Block < ActiveRecord::Base
   RAIL_INFO_URL = 'http://api.wmata.com/Rail.svc/json/JStationInfo'
   BUS_PREDICTION_URL = 'http://api.wmata.com/NextBusService.svc/json/JPredictions'
   CABI_PREDICTION_URL = 'http://www.capitalbikeshare.com/stations/bikeStations.xml'
-  ART_PREDICTION_URL = 'http://realtime.commuterpage.com/RTT/Public/Utility/File.aspx?ContentType=SQLXML&Name=RoutePositionET.xml'
-
 
 
   #Calls WMATA Route for MetroRail Info
@@ -92,11 +90,16 @@ class Block < ActiveRecord::Base
   # @return [ String ] nbEmptyDocks Number of empty docks
   #
   def cabi_prediction_info
-      station = Nokogiri::XML(open(CABI_PREDICTION_URL)).css("stations station id:contains('#{stop_id}')").first.parent
-      station.children.inject({}) { |m, child| m[child.name] = child.content; m }
+    stop_ids = eval "[#{stop_id}]"
+    stations_info = Nokogiri::XML(open(CABI_PREDICTION_URL))
+    stop_ids.inject([]) do |stations, id|
+      s = stations_info.css("stations station id:contains('#{id}')").first.parent
+      stations << s.children.inject({}) { |m, child| m[child.name] = child.content; m }
+      stations
+    end
   end
 
-  #TODO: When buses are actually running put this back in with correct attributes
+  #TODO: Get this working
   def art_prediction_info
     station = Nokogiri::XML(open("http://realtime.commuterpage.com/RTT/Public/Utility/File.aspx?ContentType=SQLXML&Name=RoutePositionET.xml&PlatformTag=#{stop_id}"))
     station.children.inject({}) { |m, child| m[child.name] = child.content; m }
@@ -108,6 +111,7 @@ class Block < ActiveRecord::Base
     station.search('predictions').inject([]) { |m, prediction| m << format_circulator_prediction(prediction); m }.first
   end
 
+  #TODO: could use some cleaning up
   def format_circulator_prediction(prediction)
     stop_name = prediction.attributes['stopTitle'].value
     route_name = prediction.attributes['routeTitle'].value

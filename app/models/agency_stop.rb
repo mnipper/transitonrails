@@ -13,6 +13,7 @@
 
 class AgencyStop < ActiveRecord::Base
   attr_accessible :agency, :stop_id, :exclusions
+  validates_inclusion_of :agency, :in => AGENCIES
 
   belongs_to :block
 end

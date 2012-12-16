@@ -1,6 +1,6 @@
 == TransitonRails
 
-TransitOnRails is a web application built for viewing Washington, DC transit information. The application borrows it's ideas and styling (for now) from https://github.com/MobilityLab/TransitScreen and was largely built as a though-exercise in converting a codeigniter app to Rails.
+TransitOnRails is a web application built for viewing Washington, DC transit information. The application borrows it's ideas and styling (for now) from https://github.com/MobilityLab/TransitScreen and was largely built as a though experiment in converting a codeigniter app to Rails.
 
 ==Getting Started
 

@@ -1,6 +1,6 @@
 class Vehicle
   attr_reader :suffix, :destination, :minutes, :route_id, :upcoming_vehicles
-  DESCENDANTS = [BusVehicle, RailVehicle]
+  DESCENDANTS = [BusVehicle, RailVehicle, CirculatorVehicle]
 
   def self.build(opts = {})
     klass = DESCENDANTS.detect { |descendant| descendant.handle?(opts[:type]) }

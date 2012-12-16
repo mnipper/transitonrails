@@ -1,7 +1,7 @@
 class RailVehicle < Vehicle
 
   def self.handle?(type)
-    ['rail'].include? type
+    %w(rail).include? type
   end
 
   def initialize(opts = {})

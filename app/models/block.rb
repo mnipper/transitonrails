@@ -32,6 +32,8 @@ class Block < ActiveRecord::Base
   RAIL_INFO_URL = 'http://api.wmata.com/Rail.svc/json/JStationInfo'
   BUS_PREDICTION_URL = 'http://api.wmata.com/NextBusService.svc/json/JPredictions'
   CABI_PREDICTION_URL = 'http://www.capitalbikeshare.com/stations/bikeStations.xml'
+  ART_PREDICTION_URL = 'http://realtime.commuterpage.com/RTT/Public/Utility/File.aspx?ContentType=SQLXML&Name=RoutePositionET.xml'
+
 
 
   #Calls WMATA Route for MetroRail Info
@@ -90,16 +92,52 @@ class Block < ActiveRecord::Base
   # @return [ String ] nbEmptyDocks Number of empty docks
   #
   def cabi_prediction_info
-      station = Nokogiri::XML(open('http://www.capitalbikeshare.com/stations/bikeStations.xml')).css("stations station id:contains('#{stop_id}')").first.parent
+      station = Nokogiri::XML(open(CABI_PREDICTION_URL)).css("stations station id:contains('#{stop_id}')").first.parent
       station.children.inject({}) { |m, child| m[child.name] = child.content; m }
   end
 
+  #TODO: When buses are actually running put this back in with correct attributes
+  def art_prediction_info
+    station = Nokogiri::XML(open("http://realtime.commuterpage.com/RTT/Public/Utility/File.aspx?ContentType=SQLXML&Name=RoutePositionET.xml&PlatformTag=#{stop_id}"))
+    station.children.inject({}) { |m, child| m[child.name] = child.content; m }
+    {}
+  end
+
+  def dc_circulator_prediction_info
+    station = Nokogiri::XML(open("http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=dc-circulator&stopId=#{stop_id}"))
+    station.search('predictions').inject([]) { |m, prediction| m << format_circulator_prediction(prediction); m }.first
+  end
+
+  def format_circulator_prediction(prediction)
+    stop_name = prediction.attributes['stopTitle'].value
+    route_name = prediction.attributes['routeTitle'].value
+    routes = prediction.search('direction').inject([]) do |m, dir|
+      destination = dir.attributes['title'].value
+      m << {:vehicles => dir.search('prediction').inject([]) do |vehicle_array, vehicle|
+                            vehicle_array << vehicle.attributes.inject({}) do |arr, (k,v)|
+                              arr[k] = v.value
+                              arr
+                            end.merge!({'DirectionText' => destination, 'RouteID' => route_name})
+                            vehicle_array
+                          end
+           }
+    end
+    formatted = {'StopName' => stop_name,
+                 'RouteName' => route_name,
+                 'Predictions' => routes.first[:vehicles] }
+    formatted
+  end
+
   def stop_info
-    send("#{agency}_stop_info")
+    send("#{agency_method}_stop_info")
   end
 
   def prediction_info
-    send("#{agency}_prediction_info")
+    send("#{agency_method}_prediction_info")
+  end
+
+  def agency_method
+    agency.gsub('-','_')
   end
 
   def column
@@ -109,6 +147,7 @@ class Block < ActiveRecord::Base
   def position
     read_attribute(:position) || 1
   end
+
 
 
   private

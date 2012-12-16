@@ -18,3 +18,4 @@
 *.swo
 *~
 Gemfile.lock
+.rvmrc

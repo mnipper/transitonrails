@@ -108,27 +108,28 @@ class Block < ActiveRecord::Base
 
   def dc_circulator_prediction_info
     station = Nokogiri::XML(open("http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=dc-circulator&stopId=#{stop_id}"))
-    station.search('predictions').inject([]) { |m, prediction| m << format_circulator_prediction(prediction); m }.first
+    format_circulator_prediction(station.search('predictions').first)
   end
 
-  #TODO: could use some cleaning up
   def format_circulator_prediction(prediction)
     stop_name = prediction.attributes['stopTitle'].value
     route_name = prediction.attributes['routeTitle'].value
-    routes = prediction.search('direction').inject([]) do |m, dir|
-      destination = dir.attributes['title'].value
-      m << {:vehicles => dir.search('prediction').inject([]) do |vehicle_array, vehicle|
-                            vehicle_array << vehicle.attributes.inject({}) do |arr, (k,v)|
-                              arr[k] = v.value
-                              arr
-                            end.merge!({'DirectionText' => destination, 'RouteID' => route_name})
-                            vehicle_array
-                          end
-           }
+    route = prediction.search('direction').first
+    if route
+      destination = route.attributes['title'].value
+      vehicles = route.search('prediction').inject([]) do |vehicle_array, vehicle|
+        vehicle_array << vehicle.attributes.inject({}) do |arr, (k,v)|
+          arr[k] = v.value
+          arr
+        end.merge!({'DirectionText' => destination, 'RouteID' => route_name})
+        vehicle_array
+      end
+      formatted = {'StopName' => stop_name,
+                   'RouteName' => route_name,
+                   'Predictions' => vehicles}
+    else
+      formatted = {}
     end
-    formatted = {'StopName' => stop_name,
-                 'RouteName' => route_name,
-                 'Predictions' => routes.first[:vehicles] }
     formatted
   end
 

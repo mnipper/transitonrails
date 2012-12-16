@@ -23,7 +23,11 @@ class BlockPresenter
   private
 
   def limit
-    block.limit || Float::INFINITY
+    block.limit
+  end
+
+  def block_limit?
+    limit.to_i == 0 ? false : true
   end
 
   def prediction_info

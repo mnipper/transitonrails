@@ -1,0 +1,7 @@
+user_name:
+  first_name: "Example"
+  last_name: "User"
+  email: "example@doesntexist.com"
+  wmata_key: "[wmata_key]"
+  password: "secret"
+  

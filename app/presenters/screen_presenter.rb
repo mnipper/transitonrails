@@ -9,7 +9,7 @@ class ScreenPresenter
     results = {}
     results.merge!(screen_information)
     results[:blocks] = []
-    blocks.each do |block|
+    blocks.sort_by(&:position).each do |block|
       results[:blocks] << BlockPresenter.build(block).data
     end
     results

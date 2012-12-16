@@ -10,7 +10,7 @@ class ScreenPresenter
     results.merge!(screen_information)
     results[:blocks] = []
     blocks.each do |block|
-      results[:blocks] << BlockPresenter.new(block).data
+      results[:blocks] << BlockPresenter.build(block).data
     end
     results
   end

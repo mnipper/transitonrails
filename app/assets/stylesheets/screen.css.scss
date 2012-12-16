@@ -7,12 +7,11 @@
 */
 
 /* 
-   TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
 root { 
-    display: block;
+  display: block;
 }
 
 body.screen-show {
@@ -20,6 +19,7 @@ body.screen-show {
   margin:20px 20px 0 20px; 
   font-family: Helvetica, Arial, sans-serif;
   color:#eeeeee;
+  padding-top: 10px !important;
   zoom: 1;
 }
 

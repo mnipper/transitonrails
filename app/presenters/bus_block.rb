@@ -24,7 +24,7 @@ class BusBlock < BlockPresenter
   def vehicles_data
     VehiclesFactory.new({:type => block.agency,
                          :vehicle_info => vehicle_info, 
-                         :unique_key => :destination}).vehicles
+                         :unique_key => :destination}).vehicles.take(limit)
   end
 
   def vehicle_info

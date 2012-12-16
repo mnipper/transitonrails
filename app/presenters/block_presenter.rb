@@ -22,6 +22,10 @@ class BlockPresenter
 
   private
 
+  def limit
+    block.limit || Float::INFINITY
+  end
+
   def prediction_info
     @prediction_info ||= block.prediction_info
   end

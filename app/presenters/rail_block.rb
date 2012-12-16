@@ -24,7 +24,7 @@ class RailBlock < BlockPresenter
 
   def vehicles_data
     VehiclesFactory.new({:type => block_type, 
-                         :vehicle_info => vehicle_info}).vehicles
+                         :vehicle_info => vehicle_info}).vehicles.take(limit)
   end
 
   def vehicle_info

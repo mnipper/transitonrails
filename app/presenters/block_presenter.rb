@@ -1,51 +1,29 @@
 class BlockPresenter
+  DESCENDANTS = [RailBlock, BusBlock, CabiBlock]
   attr_reader :block
+
+  def self.build(block)
+    klass = DESCENDANTS.detect { |descendant| descendant.handle?(block.agency) }
+    klass.new(block)
+  end
 
   def initialize(block)
     @block = block
   end
 
   def data
-    data = {}
-    data.merge!(:type => block_type)
-    data.merge!(:id => block.id)
-    data.merge!(:column => block.column)
-    data.merge!(:order => block.position)
-    data.merge!(:name => block_name)
-    data.merge!(block_specific_info)
-    data
+    block_data = {}
+    block_data.merge!(:id => block.id)
+    block_data.merge!(:column => block.column)
+    block_data.merge!(:order => block.position)
+    block_data.merge!(:name => block_name)
+    block_data
   end
 
   private
 
-  def block_specific_info
-    info = case(block_type)
-      when *['rail', 'bus'] then {:vehicles => vehicles_data}
-      when *['cabi'] then cabi_info
-      else {}
-      end
-  end
-
-  def cabi_info
-    info = {}
-    info.merge!({:bike_count => prediction_info['nbBikes'],
-                 :dock_count => prediction_info['nbEmptyDocks']})
-    info
-  end
-
-
-  def block_type
-    @block_type ||= determine_block_type
-  end
-
-  def determine_block_type
-    type = case(block.agency)
-      when *['metrobus','art','dc-circulator'] then 'bus'
-      when *['metrorail'] then 'rail'
-      when *['cabi'] then 'cabi'
-      else 'custom'
-      end
-    type
+  def prediction_info
+    @prediction_info ||= block.prediction_info
   end
 
   def block_name
@@ -57,32 +35,7 @@ class BlockPresenter
   end
 
   def api_name
-    name = case (block_type)
-      when *['bus'] then prediction_info.fetch('StopName', 'Unknown Name')
-      when *['rail'] then prediction_info['Trains'].first.fetch('LocationName')
-      when *['cabi'] then prediction_info['name']
-      else 'Custom Name'
-    end
-    name
-  end
-
-  def vehicles_data
-    Vehicles.new(block_type, prediction_info[vehicles_key]).vehicles
-  end
-
-  def vehicles_key
-    key = case (block_type)
-      when *['bus'] then 'Predictions'
-      when *['rail'] then 'Trains'
-      when *['cabi'] then 'Station'
-      else 'Key'
-    end
-    key
-  end
-
-
-  def prediction_info
-    @prediction_info ||= block.prediction_info
+    'Custom Name'
   end
 
 end

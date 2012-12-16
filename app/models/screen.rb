@@ -62,11 +62,6 @@ class Screen < ActiveRecord::Base
     self.saturday_closing = '03:00 AM' if read_attribute(:saturday_closing).nil?
     self.sunday_opening = '07:00 AM' if read_attribute(:sunday_opening).nil?
     self.sunday_closing = '12:00 AM' if read_attribute(:sunday_closing).nil?
-    if self.blocks.empty?
-      8.times do
-        self.blocks.build
-      end
-    end
     return true
   end
 

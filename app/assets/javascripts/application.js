@@ -16,5 +16,6 @@
 //= require bootstrap-timepicker
 //= require underscore-min
 //= require smartupdater
+//= require nested_form
 //= require script
 //= require_tree .

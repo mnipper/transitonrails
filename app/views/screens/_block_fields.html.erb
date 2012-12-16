@@ -1,0 +1,10 @@
+<div class=controls-row'>
+  <%= block.fields_for :agency_stop, :wrapper => false do |agency_stop| %>
+    <%= agency_stop.select :agency, AGENCIES, {}, {:class => 'span2'} %>
+    <%= agency_stop.text_field :stop_id, :class => 'span2', :placeholder => 'Stop Id' %>
+  <% end %>
+  <%= block.text_field :custom_name, :class => 'span2', 'placeholder' => 'Custom Name' %>
+  <%= block.text_field :limit, :class => 'span1', 'placeholder' => 'Limit' %>
+  <%= block.text_field :column, :class => 'span1', 'placeholder' => 'Col' %>
+  <%= block.text_field :position, :class => 'span1', 'placeholder' => 'Pos' %>
+</div>

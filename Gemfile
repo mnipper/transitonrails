@@ -7,6 +7,7 @@ gem 'devise'
 gem 'yajl-ruby'
 gem 'rest-client'
 gem 'nokogiri'
+gem 'nested_form'
 
 
 # Gems used only for assets and not required

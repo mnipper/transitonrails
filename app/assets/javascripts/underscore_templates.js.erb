@@ -15,16 +15,6 @@ var inner_block_template = function(blockType, block) {
   return html;
 }
 
-
-function busDirection(destString) {
-  var directionString = destString.match(/South to|North to/g);
-  return directionString == 'North to' ? 'Northbound to:' : 'Southbound to:';
-}
-
-function busDestination(destString) {
-  return destString.replace(/South to|North to/g, '');
-}
-
 var metro_bus_template = "\
   <div class='{{= block.type }}_container'>\
     <div class='{{= block.type }}_location'>\
@@ -45,8 +35,14 @@ var metro_bus_template = "\
             {{ if (block.type === 'rail'){ }}\
               <h3>{{= vehicle.destination }}</h3>\
             {{ } else { }}\
-              <h3>{{= busDirection(vehicle.destination) }}</h3>\
-              <h4>{{= busDestination(vehicle.destination) }}</h4>\
+                {{ var destLocation = vehicle.destination.dest_location; }}\
+                {{ var direction = vehicle.destination.direction; }}\
+                {{ if (destLocation.length) { }}\
+                  <h3>{{= direction + ' to: '}}</h3>\
+                  <h4>{{= destLocation }}</h4>\
+                {{ } else { }}\
+                  <h4>{{= direction }}</h4>\
+                {{ } }}\
             {{ } }}\
           </td>\
           <td class='{{= block.type }}_table_time'>\

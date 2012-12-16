@@ -17,7 +17,7 @@ class BlockPresenter
     block_data.merge!(:column => block.column)
     block_data.merge!(:order => block.position)
     block_data.merge!(:name => block_name)
-    block_data
+    block_data 
   end
 
   private

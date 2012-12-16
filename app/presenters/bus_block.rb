@@ -22,13 +22,13 @@ class BusBlock < BlockPresenter
   end
 
   def vehicles_data
-    VehiclesFactory.new({:type => block_type, 
+    VehiclesFactory.new({:type => block.agency,
                          :vehicle_info => vehicle_info, 
                          :unique_key => :destination}).vehicles
   end
 
   def vehicle_info
-    prediction_info[vehicles_key]
+    prediction_info.fetch(vehicles_key, [])
   end
 
   def vehicles_key

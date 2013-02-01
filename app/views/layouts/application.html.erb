@@ -3,7 +3,7 @@
 <head>
   <% screen_show = (params[:controller] == 'screens' && params[:action] == 'show') %>
   <% if screen_show %>
-    <title>Transit on Rails - <%= @screen.name %></title>
+    <title>Transit on Rails - <%= @screen.display_name %></title>
   <% else %>
     <title>Transit On Rails</title>
   <% end %>

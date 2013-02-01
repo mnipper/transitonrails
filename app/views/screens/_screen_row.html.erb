@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to screen.name, edit_screen_path(screen) %></td>
+  <td><%= link_to screen.display_name, edit_screen_path(screen) %></td>
   <td><%= screen.blocks.size.to_s %></td>
   <td>
     <%= link_to 'View', screen_path(screen), :class => 'btn btn-primary' %>

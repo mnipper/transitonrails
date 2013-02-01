@@ -18,7 +18,7 @@ class ScreenPresenter
   private
 
   def screen_information
-    @screen_information ||= {:name => screen.name}
+    @screen_information ||= {:name => screen.display_name}
   end
 
   def blocks

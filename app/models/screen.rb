@@ -50,6 +50,10 @@ class Screen < ActiveRecord::Base
     blocks.reject { |block| block.stop_id.blank? || block.stop_id.nil? }
   end
 
+  def display_name
+    name.blank? ? "Screen #{id}" : name
+  end
+
   private
 
   def assign_default_times

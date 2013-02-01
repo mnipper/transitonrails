@@ -1,13 +1,15 @@
-== TransitonRails
+== TransitOnRails
 
-TransitOnRails is a web application built for viewing Washington, DC transit information. The application borrows it's ideas and styling (for now) from https://github.com/MobilityLab/TransitScreen and was largely built as a though experiment in converting a codeigniter app to Rails.
+TransitOnRails is a web application built for viewing Washington, DC transit information. The application borrows it's ideas and styling (for now) from https://github.com/MobilityLab/TransitScreen and was largely built as a thought experiment in converting a codeigniter app to Rails.
 
 ==Getting Started
 
-TransitOnRails runs like any Rails application. Clone the application to your repository and set up
-your database:
+TransitOnRails runs like any Rails application. Clone the application to your repository, run a bundle install, set up
+your database, and you're good to go:
+  bundle install
   rake db:create
   rake db:migrate
+  rails s
 
 In order to pull back WMATA data your user account will need a valid WMATA developer API key. The application provides the ability to easily seed in a user. 
   1. Edit the user file at db/seeds/user.yml with the appropriate information. Note that email and password are required

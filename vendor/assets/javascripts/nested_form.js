@@ -1,4 +1,4 @@
-jQuery(function($) {
+(function($) {
   window.NestedFormEvents = function() {
     this.addFields = $.proxy(this.addFields, this);
     this.removeFields = $.proxy(this.removeFields, this);
@@ -21,25 +21,25 @@ jQuery(function($) {
       // or for an edit form:
       // project[tasks_attributes][0][assignments_attributes][1]
       if (context) {
-        var parentNames = context.match(/[a-z_]+_attributes/g) || [];
+        var parentNames = context.match(/[a-z_]+_attributes(?=\]\[(new_)?\d+\])/g) || [];
         var parentIds   = context.match(/[0-9]+/g) || [];
 
         for(var i = 0; i < parentNames.length; i++) {
           if(parentIds[i]) {
             content = content.replace(
-              new RegExp('(_' + parentNames[i] + ')_.+?_', 'g'),
-              '$1_' + parentIds[i] + '_');
+                new RegExp('(_' + parentNames[i] + ')_.+?_', 'g'),
+                '$1_' + parentIds[i] + '_');
 
             content = content.replace(
-              new RegExp('(\\[' + parentNames[i] + '\\])\\[.+?\\]', 'g'),
-              '$1[' + parentIds[i] + ']');
+                new RegExp('(\\[' + parentNames[i] + '\\])\\[.+?\\]', 'g'),
+                '$1[' + parentIds[i] + ']');
           }
         }
       }
 
       // Make a unique ID for the new child
       var regexp  = new RegExp('new_' + assoc, 'g');
-      var new_id  = new Date().getTime();
+      var new_id  = this.newId();
       content     = content.replace(regexp, new_id);
 
       var field = this.insertFields(content, assoc, link);
@@ -49,19 +49,23 @@ jQuery(function($) {
         .trigger({ type: 'nested:fieldAdded:' + assoc, field: field });
       return false;
     },
+    newId: function() {
+      return new Date().getTime();
+    },
     insertFields: function(content, assoc, link) {
-      return $(content).insertBefore(link);
+      var safeContent = $.parseHTML(content)
+      return $(safeContent).insertBefore(link);
     },
     removeFields: function(e) {
       var $link = $(e.currentTarget),
-          assoc = $link.data('association'); // Name of child to be removed
-      
+      assoc = $link.data('association'); // Name of child to be removed
+
       var hiddenField = $link.prev('input[type=hidden]');
       hiddenField.val('1');
-      
+
       var field = $link.closest('.fields');
       field.hide();
-      
+
       field
         .trigger({ type: 'nested:fieldRemoved', field: field })
         .trigger({ type: 'nested:fieldRemoved:' + assoc, field: field });
@@ -73,7 +77,7 @@ jQuery(function($) {
   $(document)
     .delegate('form a.add_nested_fields',    'click', nestedFormEvents.addFields)
     .delegate('form a.remove_nested_fields', 'click', nestedFormEvents.removeFields);
-});
+})(jQuery);
 
 // http://plugins.jquery.com/project/closestChild
 /*
@@ -84,23 +88,23 @@ jQuery(function($) {
  *
  */
 (function($) {
-        $.fn.closestChild = function(selector) {
-                // breadth first search for the first matched node
-                if (selector && selector != '') {
-                        var queue = [];
-                        queue.push(this);
-                        while(queue.length > 0) {
-                                var node = queue.shift();
-                                var children = node.children();
-                                for(var i = 0; i < children.length; ++i) {
-                                        var child = $(children[i]);
-                                        if (child.is(selector)) {
-                                                return child; //well, we found one
-                                        }
-                                        queue.push(child);
-                                }
-                        }
-                }
-                return $();//nothing found
-        };
+  $.fn.closestChild = function(selector) {
+    // breadth first search for the first matched node
+    if (selector && selector != '') {
+      var queue = [];
+      queue.push(this);
+      while(queue.length > 0) {
+        var node = queue.shift();
+        var children = node.children();
+        for(var i = 0; i < children.length; ++i) {
+          var child = $(children[i]);
+          if (child.is(selector)) {
+            return child; //well, we found one
+          }
+          queue.push(child);
+        }
+      }
+    }
+    return $();//nothing found
+  };
 })(jQuery);

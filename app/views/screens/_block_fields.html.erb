@@ -1,4 +1,4 @@
-<div class=controls-row'>
+<div>
   <%= block.fields_for :agency_stop, :wrapper => false do |agency_stop| %>
     <%= agency_stop.select :agency, AGENCIES, {}, {:class => 'span2'} %>
     <%= agency_stop.text_field :stop_id, :class => 'span2', :placeholder => 'Stop Id' %>
